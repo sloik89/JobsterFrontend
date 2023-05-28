@@ -1,5 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap");
-
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bgc-color: rgb(187, 222, 224);
+  --btn-color: rgb(82, 107, 187);
+  --btn-color-hover: rgb(111, 128, 184);
+  --font-white-clr: rgb(255, 255, 255);
+}
 body {
   font-family: "Roboto Condensed", sans-serif;
+  background-color: var(--bgc-color);
+}
+
+/* global classes */
+.btn {
+  background-color: var(--btn-color);
+  padding: 0.5rem 1rem;
+  color: var(--font-white-clr);
+  letter-spacing: 2px;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: var(--btn-color-hover);
 }
