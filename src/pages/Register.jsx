@@ -17,18 +17,23 @@ const Register = () => {
     e.preventDefault();
     console.log(e.target);
   };
+  const toogleMember = () => {
+    setValues({ ...values, isMember: !values.isMember });
+  };
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo />
-        <h3>Login</h3>
+        <h3>{values.isMember ? "Login" : "Register"}</h3>
         {/* name */}
-        <FormRow
-          name="name"
-          type="text"
-          handleChange={handleChange}
-          value={values.name}
-        />
+        {!values.isMember && (
+          <FormRow
+            name="name"
+            type="text"
+            handleChange={handleChange}
+            value={values.name}
+          />
+        )}
         {/* email */}
         <FormRow
           name="email"
@@ -46,6 +51,12 @@ const Register = () => {
         <button type="sumbit" className="btn btn-block">
           submit
         </button>
+        <p>
+          {values.isMember ? "Not a member yer?" : "Already a member?"}
+          <button type="button" onClick={toogleMember}>
+            {values.isMember ? "Register" : "Login"}
+          </button>
+        </p>
       </form>
     </Wrapper>
   );

@@ -21,9 +21,25 @@ const Wrapper = styled.div`
     color: var(--text-color);
     margin: 1rem 0;
   }
+  .btn {
+    margin: 1rem 0;
+  }
   .logo {
     max-width: 200px;
     align-self: center;
+  }
+  p {
+    align-self: center;
+    button {
+      font-size: 1.2rem;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      padding-left: 0.5rem;
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
   }
 `;
 export default Wrapper;
