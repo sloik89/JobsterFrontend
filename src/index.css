@@ -6,11 +6,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 :root {
   --bgc-color: rgb(187, 222, 224);
   --btn-color: rgb(82, 107, 187);
   --btn-color-hover: rgb(111, 128, 184);
   --font-white-clr: rgb(255, 255, 255);
+  --fluid-width: 990px;
+  --max-width: 1200px;
+  --nav-height: 100px;
+  --text-color: rgb(35, 49, 58);
 }
 body {
   font-family: "Roboto Condensed", sans-serif;
@@ -30,4 +35,16 @@ body {
 }
 .btn:hover {
   background-color: var(--btn-color-hover);
+}
+.page {
+  min-height: calc(100vh - var(--nav-height));
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.text {
+  letter-spacing: 1px;
+  margin: 2rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
