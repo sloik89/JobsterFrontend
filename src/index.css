@@ -9,6 +9,7 @@
 a {
   text-decoration: none;
 }
+
 :root {
   --bgc-color: rgb(187, 222, 224);
   --btn-color: rgb(82, 107, 187);
@@ -49,4 +50,16 @@ body {
   color: var(--text-color);
   font-size: 1.1rem;
   line-height: 1.5;
+}
+.full-page {
+  min-height: 100vh;
+}
+.link {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--text-color);
+  letter-spacing: 2px;
+}
+.link:hover {
+  color: grey;
 }
