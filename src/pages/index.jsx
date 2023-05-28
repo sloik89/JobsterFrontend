@@ -1,3 +1,5 @@
 import Landing from "./Landing";
-
-export { Landing };
+import Error from "./Error";
+import Dashboard from "./Dashboard";
+import Register from "./Register";
+export { Landing, Error, Dashboard, Register };

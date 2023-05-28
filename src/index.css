@@ -6,7 +6,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+a {
+  text-decoration: none;
+}
 :root {
   --bgc-color: rgb(187, 222, 224);
   --btn-color: rgb(82, 107, 187);
