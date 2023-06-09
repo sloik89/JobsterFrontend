@@ -33,7 +33,7 @@ const Register = () => {
       dispatch(loginUser({ email: email, password: password }));
       return;
     }
-    dispatch(registerUser(name, email, password));
+    dispatch(registerUser({ name, email, password }));
   };
   const toogleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -66,7 +66,7 @@ const Register = () => {
           handleChange={handleChange}
           value={values.password}
         />
-        <button type="sumbit" className="btn btn-block">
+        <button type="sumbit" className="btn btn-block" disabled={isLoadings}>
           submit
         </button>
         <p>
