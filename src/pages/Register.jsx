@@ -4,6 +4,7 @@ import { FormRow, Logo } from "../components/";
 import { toast } from "react-toastify";
 import { loginUser, registerUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const initialState = {
   name: "",
   email: "",
@@ -12,9 +13,17 @@ const initialState = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isLoadings } = useSelector((store) => store.user);
+  const { user, isLoading } = useSelector((store) => store.user);
   const [values, setValues] = useState(initialState);
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [navigate, user]);
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -66,8 +75,8 @@ const Register = () => {
           handleChange={handleChange}
           value={values.password}
         />
-        <button type="sumbit" className="btn btn-block" disabled={isLoadings}>
-          submit
+        <button type="sumbit" className="btn btn-block" disabled={isLoading}>
+          {isLoading ? "loading" : "submit"}
         </button>
         <p>
           {values.isMember ? "Not a member yer?" : "Already a member?"}
