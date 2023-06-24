@@ -64,6 +64,12 @@ body {
 .link:hover {
   color: grey;
 }
+/* .nav-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+} */
 /* class to style toastify message */
 .Toastify__toast {
   text-transform: capitalize;
