@@ -5,8 +5,10 @@ const Wrapper = styled.div`
 
   .dashboard {
     @media screen and (min-width: 992px) {
-      display: grid;
-      grid-template-columns: auto 1fr;
+      display: flex;
+      div + div + div {
+        flex-grow: 1;
+      }
     }
   }
 `;
