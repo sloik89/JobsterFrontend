@@ -51,6 +51,12 @@ const userSlice = createSlice({
 });
 ```
 
+### How to export slice from redux?
+
+```js
+export default userSlice.reducer;
+```
+
 ### Slice with extra reducers
 
 ```js
@@ -105,12 +111,6 @@ export const registerUser = createAsyncThunk(
 
 ```js
 export const { toggleSidebar, toggleDropdown, logoutUser } = userSlice.actions;
-```
-
-### How to export slice from redux?
-
-```js
-export default userSlice.reducer;
 ```
 
 ### How to navigate to diffrent page after 2 seconds if user present?
