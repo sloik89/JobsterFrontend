@@ -198,3 +198,46 @@ const SharedLayouts = () => {
   );
 };
 ```
+
+### How to get state using thunkApi?
+
+Get token
+
+```js
+thunkAPI.getState().user.user.token;
+```
+
+## Using shared layots
+
+- setting up shared layouts
+- index means default page
+
+```js
+<Route path="/" element={<SharedLayouts />}>
+  <Route index element={<Stats />} />
+  <Route path="all-jobs" element={<AllJobs />} />
+  <Route path="add-jobs" element={<AddJobs />} />
+  <Route path="profile" element={<Profile />} />
+</Route>
+```
+
+- Outlet
+- Outlet refers to Profile, AllJobs, AddJobs
+
+```js
+const SharedLayouts = () => {
+ return (
+   <Wrapper>
+     <main className="dashboard">
+       <SmallSidebar />
+       <BigSidebar />
+       <div>
+         <Navbar />
+         <div className="dashboard-page">
+           <Outlet />
+         </div>
+       </div>
+     </main>
+   </Wrapper>
+ );
+```

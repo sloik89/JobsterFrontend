@@ -30,9 +30,26 @@ export const loginUser = createAsyncThunk(
     console.log(user);
     try {
       const res = await axios.post("/api/auth/login", user);
+      console.log(res);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (user, thunkAPI) => {
+    try {
+      const res = await axios.patch("/api/auth/updateUser", user, {
+        headers: {
+          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+        },
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
     }
   }
 );
@@ -81,6 +98,20 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        console.log(user);
+        state.isLoading = false;
+        state.user = user;
+        addUserToLocalStorage(user);
+        toast.success(`User updated ${user.name}`);
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });
