@@ -5,7 +5,12 @@ import {
   addUserToLocalStorage,
   removeUserFormLocalStoreage,
 } from "../../utilis/localStorage";
-import axios from "axios";
+
+import {
+  registerUserThunk,
+  loginUserThunk,
+  updateUserThunk,
+} from "./userThunk";
 const initialState = {
   isLoading: false,
   isSidebarOpen: false,
@@ -15,42 +20,19 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user, thunkAPI) => {
-    try {
-      const res = await axios.post("/api/auth/register", user);
-      return res.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data.msg);
-      console.log(err);
-    }
+    return registerUserThunk("/api/auth/register", user, thunkAPI);
   }
 );
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
-    console.log(user);
-    try {
-      const res = await axios.post("/api/auth/login", user);
-      console.log(res);
-      return res.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data.msg);
-    }
+    return loginUserThunk("/api/auth/login", user, thunkAPI);
   }
 );
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (user, thunkAPI) => {
-    try {
-      const res = await axios.patch("/api/auth/updateUser", user, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      console.log(res.data);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
+    return updateUserThunk("/api/auth/updateUser", user, thunkAPI);
   }
 );
 const userSlice = createSlice({
@@ -110,8 +92,10 @@ const userSlice = createSlice({
         addUserToLocalStorage(user);
         toast.success(`User updated ${user.name}`);
       })
-      .addCase(updateUser.rejected, (state) => {
+      .addCase(updateUser.rejected, (state, { payload }) => {
+        console.log(payload);
         state.isLoading = false;
+        toast.error(payload);
       });
   },
 });

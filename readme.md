@@ -241,3 +241,9 @@ const SharedLayouts = () => {
    </Wrapper>
  );
 ```
+
+### What is thunkApi?
+
+- thunkApi gives us access to the state `thunkApi.getState()`
+- also we can dispatch action `thunkApi.dispatch(openModal)`
+- we can pass down values with `thunkApi.rejectWithValue('something went wrong')`
