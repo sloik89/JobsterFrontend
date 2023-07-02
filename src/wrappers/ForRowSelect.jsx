@@ -6,19 +6,15 @@ const Wrapper = styled.div`
   label {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #656575;
     text-transform: capitalize;
+    color: rgb(101, 101, 117);
     letter-spacing: 1px;
   }
-  input {
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
+  select {
+    padding: 0.5rem;
     border: none;
-    background-color: #d9e2e2;
-    border-radius: 5px;
-  }
-  input:focus {
-    outline: none;
+    border: none;
+    background-color: rgb(217, 226, 226);
   }
 `;
 export default Wrapper;
