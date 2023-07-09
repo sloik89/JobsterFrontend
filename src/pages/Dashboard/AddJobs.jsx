@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../wrappers/AddJobs";
 import { FormRow } from "../../components/";
@@ -6,6 +6,7 @@ import { updateUser } from "../../features/user/userSlice";
 import { FormRowSelect } from "../../components";
 import { toast } from "react-toastify";
 import { handleChange, clearValues } from "../../features/jobs/JobsSlice";
+import { createJob } from "../../features/jobs/JobsSlice";
 const AddJobs = () => {
   const dispatch = useDispatch();
   const {
@@ -20,18 +21,25 @@ const AddJobs = () => {
     statusOptions,
     editJobId,
   } = useSelector((store) => store.job);
+  const { user } = useSelector((store) => store.user);
+  console.log(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!position || !company || !jobLocation) {
       toast.error("Please fill out all fields");
       return;
     }
+    // console.log(position, company, jobLocation, status, jobType);
+    dispatch(createJob({ position, company, jobLocation, status, jobType }));
   };
   const handleJobInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
+  useEffect(() => {
+    dispatch(handleChange({ name: "jobLocation", value: user.location }));
+  }, []);
   return (
     <Wrapper>
       <form className="form">
