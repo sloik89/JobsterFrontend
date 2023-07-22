@@ -64,6 +64,11 @@ body {
 .link:hover {
   color: grey;
 }
+.loading-center {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
 /* .nav-center {
   display: flex;
   justify-content: space-between;
