@@ -7,6 +7,7 @@ import { FormRowSelect } from "../../components";
 import { toast } from "react-toastify";
 import { handleChange, clearValues } from "../../features/jobs/JobsSlice";
 import { createJob } from "../../features/jobs/JobsSlice";
+import { jobUpdate } from "../../features/jobs/JobsSlice";
 const AddJobs = () => {
   const dispatch = useDispatch();
   const {
@@ -30,6 +31,19 @@ const AddJobs = () => {
       return;
     }
     // console.log(position, company, jobLocation, status, jobType);
+    if (isEditing) {
+      dispatch(
+        jobUpdate({
+          position,
+          company,
+          jobLocation,
+          status,
+          jobType,
+          id: editJobId,
+        })
+      );
+      return;
+    }
     dispatch(createJob({ position, company, jobLocation, status, jobType }));
   };
   const handleJobInput = (e) => {
@@ -37,8 +51,11 @@ const AddJobs = () => {
     const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
+
   useEffect(() => {
-    dispatch(handleChange({ name: "jobLocation", value: user.location }));
+    if (!isEditing) {
+      dispatch(handleChange({ name: "jobLocation", value: user.location }));
+    }
   }, []);
   return (
     <Wrapper>
@@ -79,7 +96,10 @@ const AddJobs = () => {
             <button
               type="button"
               className="btn btn-block clear-btn"
-              onClick={() => dispatch(clearValues())}
+              onClick={() => {
+                dispatch(clearValues());
+              }}
+              disabled={isEditing}
             >
               clear
             </button>
@@ -89,7 +109,7 @@ const AddJobs = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              submit
+              {isLoading ? "loading" : "submit"}
             </button>
           </div>
         </div>

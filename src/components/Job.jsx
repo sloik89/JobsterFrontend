@@ -6,6 +6,8 @@ import { JobsInfo } from "./";
 import moment from "moment";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { deleteJob } from "../features/alljobs/AllJobsSlice";
+import { setEditJob } from "../features/jobs/JobsSlice";
+
 const Job = ({
   _id,
   company,
@@ -35,7 +37,22 @@ const Job = ({
         </div>
       </div>
       <footer>
-        <Link className="btn" to="/add-jobs">
+        <Link
+          onClick={() =>
+            dispatch(
+              setEditJob({
+                editJobId: _id,
+                position,
+                company,
+                jobLocation,
+                jobType,
+                status,
+              })
+            )
+          }
+          className="btn"
+          to="/add-jobs"
+        >
           Edit
         </Link>
         <Link onClick={() => dispatch(deleteJob(_id))} className="btn">
