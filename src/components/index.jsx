@@ -9,6 +9,7 @@ import SearchJobs from "./SearchJobs";
 import JobsContainer from "./JobsContainer";
 import Job from "./Job";
 import Loading from "./Loading";
+import JobsInfo from "./JobsInfo";
 export {
   Logo,
   FormRow,
@@ -21,4 +22,5 @@ export {
   JobsContainer,
   Job,
   Loading,
+  JobsInfo,
 };

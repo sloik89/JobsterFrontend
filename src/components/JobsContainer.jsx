@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 const JobsContainer = () => {
   const dispatch = useDispatch();
   const { jobs, isLoading } = useSelector((store) => store.allJobs);
-  console.log(jobs);
+
   useEffect(() => {
     dispatch(getJobs());
   }, []);
@@ -22,7 +22,6 @@ const JobsContainer = () => {
       <h5>jobs info</h5>
       <div className="jobs">
         {jobs.map((job) => {
-          console.log(job);
           return <Job key={job._id} {...job} />;
         })}
       </div>
