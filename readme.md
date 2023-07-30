@@ -258,3 +258,8 @@ const SharedLayouts = () => {
 import { jobUpdateThunk, createJobThunk, deleteJobThunk } from "./jobsThunk";
 export const createJob = createAsyncThunk("job/createJob", createJobThunk);
 ```
+
+### Test user
+
+- email: testUser@test.com
+- pswd: secret

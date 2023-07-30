@@ -30,9 +30,11 @@ const Register = () => {
     setValues({ ...values, [name]: value });
     console.log(e.target);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    console.log(e);
+
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("Please fill out all fields");
@@ -78,6 +80,20 @@ const Register = () => {
         <button type="sumbit" className="btn btn-block" disabled={isLoading}>
           {isLoading ? "loading" : "submit"}
         </button>
+        {values.isMember && (
+          <button
+            className="btn btn-block"
+            onClick={() => {
+              setValues({
+                ...values,
+                email: "testUser@test.com",
+                password: "secret",
+              });
+            }}
+          >
+            Demo
+          </button>
+        )}
         <p>
           {values.isMember ? "Not a member yer?" : "Already a member?"}
           <button type="button" onClick={toogleMember}>
