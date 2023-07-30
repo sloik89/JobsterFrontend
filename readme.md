@@ -16,6 +16,8 @@ import userSlice from "./features/user/userSlice";
 export const store = configureStore({
   reducer: {
     user: userSlice,
+    job: JobsSlice,
+    allJobs: allJobsSlice,
   },
 });
 ```
@@ -247,3 +249,12 @@ const SharedLayouts = () => {
 - thunkApi gives us access to the state `thunkApi.getState()`
 - also we can dispatch action `thunkApi.dispatch(openModal)`
 - we can pass down values with `thunkApi.rejectWithValue('something went wrong')`
+
+### Refactor slice
+
+- move async function to jobsThunk
+
+```js
+import { jobUpdateThunk, createJobThunk, deleteJobThunk } from "./jobsThunk";
+export const createJob = createAsyncThunk("job/createJob", createJobThunk);
+```

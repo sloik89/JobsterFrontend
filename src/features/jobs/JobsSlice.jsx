@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import axios from "axios";
+
 import { logoutUser } from "../user/userSlice";
 import { getUserFromLocalStorage } from "../../utilis/localStorage";
+import { getJobs } from "../alljobs/AllJobsSlice";
+import { jobUpdateThunk, createJobThunk, deleteJobThunk } from "./jobsThunk";
 const initialState = {
   isLoading: false,
   position: "",
@@ -15,44 +17,9 @@ const initialState = {
   isEditing: false,
   editJobId: "",
 };
-export const createJob = createAsyncThunk(
-  "job/createJob",
-  async (job, thunkAPI) => {
-    try {
-      const res = await axios.post("/api/jobs", job, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      thunkAPI.dispatch(clearValues());
-      console.log(res);
-      return res.data;
-    } catch (err) {
-      if (err.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
-        return thunkAPI.rejectWithValue("Unauthorized! Logginf Out...");
-      }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
-export const jobUpdate = createAsyncThunk(
-  "jobs/jobUpdate",
-  async (job, thunkAPI) => {
-    try {
-      const res = await axios.patch(`/api/jobs/${job.id}`, job, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      return res.data;
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-      return thunkAPI.rejectWithValue("Something wrong");
-    }
-  }
-);
+export const createJob = createAsyncThunk("job/createJob", createJobThunk);
+export const deleteJob = createAsyncThunk("allJobs/deletejob", deleteJobThunk);
+export const jobUpdate = createAsyncThunk("jobs/jobUpdate", jobUpdateThunk);
 const jobSlice = createSlice({
   name: "jobs",
   initialState,
@@ -95,6 +62,18 @@ const jobSlice = createSlice({
         state.isLoading = false;
         toast.error(payload);
       });
+    builder.addCase(deleteJob.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      toast.success(payload.msg);
+      console.log("jestem");
+    });
+    builder.addCase(deleteJob.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload);
+    });
+    builder.addCase(deleteJob.pending, (state, { payload }) => {
+      state.isLoading = true;
+    });
   },
 });
 export const { handleChange, clearValues, setEditJob } = jobSlice.actions;

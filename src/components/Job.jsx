@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { JobsInfo } from "./";
 import moment from "moment";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
-import { deleteJob } from "../features/alljobs/AllJobsSlice";
+import { deleteJob } from "../features/jobs/JobsSlice";
 import { setEditJob } from "../features/jobs/JobsSlice";
 
 const Job = ({

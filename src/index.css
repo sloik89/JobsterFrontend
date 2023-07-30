@@ -40,6 +40,9 @@ body {
 .btn:hover {
   background-color: var(--btn-color-hover);
 }
+.clear-btn:disabled {
+  background-color: rgb(177, 173, 173);
+}
 .page {
   min-height: calc(100vh - var(--nav-height));
   max-width: var(--max-width);
