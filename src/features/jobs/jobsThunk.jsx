@@ -23,8 +23,12 @@ export const createJobThunk = async (job, thunkAPI) => {
   }
 };
 export const deleteJobThunk = async (payloadId, thunkAPI) => {
+  if (thunkAPI.getState().user.user.email === "testUser@test.com") {
+    console.log("jestem ww");
+    return thunkAPI.rejectWithValue("No acces to data");
+  }
   try {
-    console.log(payloadId);
+    console.log(authHeader(thunkAPI));
     const res = await axios.delete(
       `/api/jobs/${payloadId}`,
       authHeader(thunkAPI)

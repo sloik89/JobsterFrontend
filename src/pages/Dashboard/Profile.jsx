@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../wrappers/Profile";
 import { FormRow } from "../../components/";
 import { updateUser } from "../../features/user/userSlice";
+
 import { toast } from "react-toastify";
+import { checkTestUser } from "../../utilis/checkTestUser";
 const Profile = () => {
   const dispatch = useDispatch();
   const { isLoading, user } = useSelector((store) => store.user);
@@ -16,6 +18,11 @@ const Profile = () => {
   console.log(isLoading);
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (checkTestUser()) {
+      toast.error("Test user cannot change profile");
+      return;
+    }
     const { name, email, lastName, location } = userData;
     if (!name || !email || !lastName || !location) {
       toast.error("please fill up ");

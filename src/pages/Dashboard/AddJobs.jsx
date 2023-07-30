@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { handleChange, clearValues } from "../../features/jobs/JobsSlice";
 import { createJob } from "../../features/jobs/JobsSlice";
 import { jobUpdate } from "../../features/jobs/JobsSlice";
+import { checkTestUser } from "../../utilis/checkTestUser";
+checkTestUser;
 const AddJobs = () => {
   const dispatch = useDispatch();
   const {
@@ -26,6 +28,14 @@ const AddJobs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // if (user.email === "testUser@test.com") {
+    //   toast.error("Cannot add job, you are in demo mode");
+    //   return;
+    // }
+    if (checkTestUser()) {
+      toast.error("Cannot add job, you are in demo mode");
+      return;
+    }
     if (!position || !company || !jobLocation) {
       toast.error("Please fill out all fields");
       return;

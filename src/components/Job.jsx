@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Wrapper from "../wrappers/Job";
 import { Link } from "react-router-dom";
 import { JobsInfo } from "./";
@@ -7,6 +7,8 @@ import moment from "moment";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { deleteJob } from "../features/jobs/JobsSlice";
 import { setEditJob } from "../features/jobs/JobsSlice";
+import { checkTestUser } from "../utilis/checkTestUser";
+import { toast } from "react-toastify";
 
 const Job = ({
   _id,
@@ -18,6 +20,26 @@ const Job = ({
   jobLocation,
 }) => {
   const dispatch = useDispatch();
+  const {
+    user: { email },
+  } = useSelector((store) => store.user);
+  console.log(email);
+  const editJob = () => {
+    if (email === "testUser@test.com") {
+      toast.error("You cannot edit item as test user");
+      return;
+    }
+    dispatch(
+      setEditJob({
+        editJobId: _id,
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      })
+    );
+  };
   const date = moment(createdAt).format("MMM Do, YYY");
   return (
     <Wrapper>
@@ -38,24 +60,18 @@ const Job = ({
       </div>
       <footer>
         <Link
-          onClick={() =>
-            dispatch(
-              setEditJob({
-                editJobId: _id,
-                position,
-                company,
-                jobLocation,
-                jobType,
-                status,
-              })
-            )
-          }
+          onClick={editJob}
           className="btn"
-          to="/add-jobs"
+          to={`${email === "testUser@test.com" ? "/all-jobs" : "/add-jobs"}`}
         >
           Edit
         </Link>
-        <Link onClick={() => dispatch(deleteJob(_id))} className="btn">
+        <Link
+          onClick={() => {
+            dispatch(deleteJob(_id));
+          }}
+          className="btn"
+        >
           Delete
         </Link>
       </footer>

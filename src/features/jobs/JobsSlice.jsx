@@ -43,7 +43,6 @@ const jobSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createJob.fulfilled, (state) => {
-        console.log("jestem w extra reducer");
         state.isLoading = false;
         toast.success("Job added");
       })
