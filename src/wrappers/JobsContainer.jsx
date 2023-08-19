@@ -5,6 +5,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: space-between;
+  }
+  .jobs > * {
+    max-width: 600px;
   }
 `;
 export default Wrapper;

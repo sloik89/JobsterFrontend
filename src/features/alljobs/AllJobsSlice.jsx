@@ -44,7 +44,7 @@ const allJobsSlice = createSlice({
     });
     builder.addCase(getJobs.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.jobs = payload;
+      state.jobs = payload.jobs;
     });
     builder.addCase(getJobs.rejected, (state, { payload }) => {
       state.isLoading = false;
